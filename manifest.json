@@ -1,0 +1,17 @@
+{
+  "manifest_version": 2,
+
+  "name": "Ng Inspect Watchers",
+  "description": "A Chrome extension to inspect the Angular watchers",
+  "version": "1.0",
+
+  "browser_action": {
+    "default_popup": "popup.html",
+    "default_title": "Ng Inspect Watchers"
+  },
+  "permissions": [
+    "activeTab",
+    "http://*/",
+    "https://*/"
+  ]
+}
