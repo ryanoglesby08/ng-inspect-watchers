@@ -11,7 +11,6 @@ var main = function() {
 
   $("#iw_inspect_watchers_js_on").remove();
   $("#iw_inspect_watchers_js_off").remove();
-  $("#iw_inspect_watchers_styles").remove();
 };
 
 var script = document.createElement('script');

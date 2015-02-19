@@ -39,21 +39,7 @@ var main = function() {
 
   ngWatchCount();
 
-  styles = "" +
-  "<style id='iw_inspect_watchers_styles'>" +
-  ".iw-ng-scope-highlight {" +
-  "    border: 1px solid red; " +
-  "}" +
-  ".iw-ng-scope-count {" +
-  "   position: absolute;" +
-  "   background-color: red;" +
-  "   color: white";
-  "}" +
-  "</style>";
-
   var scopeCountContainer = "<div class='iw-ng-scope-count'></div>";
-
-  $('body').append(styles);
 
   var scopeCountContainerClassName = "iw-ng-scope-count";
   var scopeHighlightClassName = "iw-ng-scope-highlight";

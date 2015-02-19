@@ -1,0 +1,8 @@
+.iw-ng-scope-highlight {
+    border: 1px solid red !important;
+}
+.iw-ng-scope-count {
+   position: absolute !important;
+   background-color: red !important;
+   color: white !important;
+}

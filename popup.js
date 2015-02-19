@@ -42,10 +42,10 @@ port.postMessage({action: 'getStatus'});
 
 $(document).on('click', '#ng_inspect_watchers_on', function() {
   port.postMessage({action: 'updateStatus', on: true});
-  chrome.tabs.executeScript(null, {file: "iw_inspect_watchers_on.js"});
+  chrome.tabs.executeScript(null, {file: "ng_inspect_watchers_on.js"});
 });
 
 $(document).on('click', '#ng_inspect_watchers_off', function() {
   port.postMessage({action: 'updateStatus', on: false});
-  chrome.tabs.executeScript(null, {file: "iw_inspect_watchers_off.js"});
+  chrome.tabs.executeScript(null, {file: "ng_inspect_watchers_off.js"});
 });
