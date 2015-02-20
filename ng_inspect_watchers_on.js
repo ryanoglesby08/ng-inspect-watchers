@@ -1,17 +1,16 @@
 var main = function() {
   var ngWatchCount = function (targetElements) {
-    targetElements = angular.element(targetElements || document);
+    var targetElements = angular.element(targetElements || document);
 
     var countWatchers = function(element) {
       var watchers = 0;
       var scope = null;
 
-      element = angular.element(element);
+      var element = angular.element(element);
 
       if (element.is('.ng-scope')) {
         scope = element.scope();
       }
-
       // I believe scopes and isolate scopes are meant to be mutually exclusive
       else if (element.is('.ng-isolate-scope')) {
         scope = element.isolateScope();
@@ -26,7 +25,7 @@ var main = function() {
       });
 
       return watchers;
-    }
+    };
 
     var watchers = 0;
     angular.forEach(targetElements, function(element) {
@@ -39,42 +38,65 @@ var main = function() {
 
   ngWatchCount();
 
-  var scopeCountContainer = "<div class='iw-ng-scope-count'></div>";
+  var watcherCountClassName = "iw-ng-scope-count";
+  var watcherHighlightClassName = "iw-ng-scope-highlight";
+  var watcherCountTemplate = "<div class='" + watcherCountClassName + "'>{watcherCount}</div>";
 
-  var scopeCountContainerClassName = "iw-ng-scope-count";
-  var scopeHighlightClassName = "iw-ng-scope-highlight";
+  function removeAnyWatcherHighlighting() {
+    $('.' + watcherHighlightClassName).removeClass(watcherHighlightClassName);
+    $('.' + watcherCountClassName).remove();
+  }
 
-  showWatchers = function(event) {
-    $("." + scopeHighlightClassName).removeClass(scopeHighlightClassName);
-    $("." + scopeCountContainerClassName).remove();
-
-    var watchCount = ngWatchCount(this);
-
+  function findScopeParentThen(element, workForScopeParent) {
     // TODO: Need to account for .isolate-scope too
-    var scopeParent = $(this).closest('.ng-scope');
-    scopeParent.addClass(scopeHighlightClassName);
+    var scopeParent = $(element).closest('.ng-scope');
+    workForScopeParent(scopeParent);
+  }
 
-    scopeParent.append(scopeCountContainer);
-    $("." + scopeCountContainerClassName).html(watchCount);
+  function highlight(element) {
+    element.addClass(watcherHighlightClassName);
+  }
+
+  function insertWatcherCountInto(element) {
+    var watcherCount = ngWatchCount(element);
+
+    element.append(watcherCountTemplate.replace('{watcherCount}', watcherCount))
+  }
+
+  var showWatchers = function(event) {
+    removeAnyWatcherHighlighting();
+
+    findScopeParentThen(this, function(scopeParent) {
+      highlight(scopeParent)
+      insertWatcherCountInto(scopeParent);
+    });
 
     event.stopPropagation();
   };
-  hideWatchers = function(event) {
-    $("." + scopeCountContainerClassName).remove();
 
-    // TODO: Need to account for .isolate-scope too
-    var scopeParent = $(this).closest('.ng-scope');
-    scopeParent.removeClass(scopeHighlightClassName);
+  var hideWatchers = function(event) {
+    removeAnyWatcherHighlighting();
 
     event.stopPropagation();
   };
 
-  $(document).on("mouseover", "*", showWatchers);
-  $(document).on("mouseout", "*", hideWatchers);
+  disableNgInspectWatchers = function() {
+    console.log("Turning off showWatchers");
+    $(document).off('mouseover', '*', showWatchers);
+
+    console.log("Turning off hideWatchers");
+    $(document).off('mouseout', '*', hideWatchers);
+
+    $('#iw_inspect_watchers_js_on').remove();
+  };
+
+
+  $(document).on('mouseover', '*', showWatchers)
+             .on('mouseout', '*', hideWatchers);
 };
 
 var script = document.createElement('script');
-script.id = "iw_inspect_watchers_js_on";
-script.appendChild(document.createTextNode('var showWatchers = null; var hideWatchers = null;'));
+script.id = 'iw_inspect_watchers_js_on';
+script.appendChild(document.createTextNode('var disableNgInspectWatchers = null;'));
 script.appendChild(document.createTextNode('('+ main +')();'));
 (document.body || document.head || document.documentElement).appendChild(script);
