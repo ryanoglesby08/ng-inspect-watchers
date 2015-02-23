@@ -38,7 +38,7 @@ var main = function() {
 
   ngWatchCount();
 
-  var watcherCountClassName = "iw-ng-scope-count";
+  var watcherCountClassName = "iw-ng-watcher-count";
   var watcherHighlightClassName = "iw-ng-scope-highlight";
   var watcherCountTemplate = "<div class='" + watcherCountClassName + "'>{watcherCount}</div>";
 

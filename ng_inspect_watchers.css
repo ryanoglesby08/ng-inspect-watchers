@@ -1,8 +1,17 @@
 .iw-ng-scope-highlight {
-    border: 1px solid red !important;
+  border: 1px solid red !important;
+  position: relative !important;
 }
-.iw-ng-scope-count {
-   position: absolute !important;
-   background-color: red !important;
-   color: white !important;
+.iw-ng-watcher-count {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 20px;
+  padding: 5px;
+  background-color: red;
+  color: white;
+  text-align: center;
+  font-weight: normal;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 14px;
 }
