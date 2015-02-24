@@ -32,11 +32,10 @@ var main = function() {
       watchers += countWatchers(element);
     })
 
-    console.log(['Watcher count', targetElements, watchers]);
+    console.log('Ng Inspect Watchers: Element contains ' + watchers + ' watchers.');
+
     return watchers;
   }
-
-  ngWatchCount();
 
   var watcherCountClassName = "iw-ng-watcher-count";
   var watcherHighlightClassName = "iw-ng-scope-highlight";
@@ -81,11 +80,8 @@ var main = function() {
   };
 
   disableNgInspectWatchers = function() {
-    console.log("Turning off showWatchers");
-    $(document).off('mouseover', '*', showWatchers);
-
-    console.log("Turning off hideWatchers");
-    $(document).off('mouseout', '*', hideWatchers);
+    $(document).off('mouseover', '*', showWatchers)
+               .off('mouseout', '*', hideWatchers);
 
     $('#iw_inspect_watchers_js_on').remove();
   };
