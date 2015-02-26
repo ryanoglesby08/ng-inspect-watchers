@@ -1,5 +1,8 @@
 var main = function() {
   var ngWatchCount = function (targetElements) {
+    // ngWatchCount has been adopted from bahmutov (https://github.com/bahmutov/code-snippets/blob/master/ng-count-watchers.js)
+    // with help from Patrick Caldwell (https://github.com/tncbbthositg). Thanks!
+
     var targetElements = angular.element(targetElements || document);
 
     var countWatchers = function(element) {
