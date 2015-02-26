@@ -10,7 +10,7 @@ var ngInspectWatchers = (function() {
   };
 })();
 
-chrome.extension.onConnect.addListener(function(port) {
+chrome.runtime.onConnect.addListener(function(port) {
   port.onMessage.addListener(function(message) {
     if( message.action == 'updateStatus' ) {
       ngInspectWatchers.updateStatus(message.on);

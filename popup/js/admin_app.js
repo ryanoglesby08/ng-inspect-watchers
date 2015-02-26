@@ -29,23 +29,8 @@ var adminApp = (function($) {
   }
 
   return {
+    onButton: onButton,
+    offButton: offButton,
     render: render
   }
 })($);
-
-var port = chrome.extension.connect({name: 'Ng Inspect Watchers'});
-port.onMessage.addListener(function(message) {
-  adminApp.render(message.on);
-});
-
-port.postMessage({action: 'getStatus'});
-
-$(document).on('click', '#ng_inspect_watchers_on', function() {
-  port.postMessage({action: 'updateStatus', on: true});
-  chrome.tabs.executeScript(null, {file: "ng_inspect_watchers_on.js"});
-});
-
-$(document).on('click', '#ng_inspect_watchers_off', function() {
-  port.postMessage({action: 'updateStatus', on: false});
-  chrome.tabs.executeScript(null, {file: "ng_inspect_watchers_off.js"});
-});
