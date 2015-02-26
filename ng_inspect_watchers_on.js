@@ -1,26 +1,28 @@
 var main = function() {
   var ngWatchCount = function (targetElements) {
     // ngWatchCount has been adopted from bahmutov (https://github.com/bahmutov/code-snippets/blob/master/ng-count-watchers.js)
-    // with help from Patrick Caldwell (https://github.com/tncbbthositg). Thanks!
+    //  with help from Patrick Caldwell (https://github.com/tncbbthositg). Thanks!
 
-    var targetElements = angular.element(targetElements || document);
+    var watchersOn = function(scope) {
+      if (scope && scope.$$watchers) {
+        return scope.$$watchers.length;
+      }
+
+      return 0;
+    };
 
     var countWatchers = function(element) {
       var watchers = 0;
-      var scope = null;
-
       var element = angular.element(element);
 
+      // Elements can be .ng-scope, .ng-isolate-scope, or both. I think if it is both,
+      //  then isolateScope() will have the $$watchers
       if (element.is('.ng-scope')) {
-        scope = element.scope();
-      }
-      // I believe scopes and isolate scopes are meant to be mutually exclusive
-      else if (element.is('.ng-isolate-scope')) {
-        scope = element.isolateScope();
+        watchers += watchersOn(element.scope());
       }
 
-      if (scope && scope.$$watchers) {
-        watchers += scope.$$watchers.length;
+      if (element.is('.ng-isolate-scope')) {
+        watchers += watchersOn(element.isolateScope());
       }
 
       angular.forEach(element.children(), function(childElement) {
@@ -30,10 +32,13 @@ var main = function() {
       return watchers;
     };
 
+
+    var targetElements = angular.element(targetElements || document);
+
     var watchers = 0;
     angular.forEach(targetElements, function(element) {
       watchers += countWatchers(element);
-    })
+    });
 
     console.log('Ng Inspect Watchers: Element contains ' + watchers + ' watchers.');
 
@@ -50,8 +55,7 @@ var main = function() {
   }
 
   function findScopeParentThen(element, workForScopeParent) {
-    // TODO: Need to account for .isolate-scope too
-    var scopeParent = $(element).closest('.ng-scope');
+    var scopeParent = $(element).closest('.ng-scope, .ng-isolate-scope');
     workForScopeParent(scopeParent);
   }
 
