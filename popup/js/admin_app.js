@@ -1,14 +1,17 @@
 var adminApp = (function($) {
-  var statusElement = function() { return $('#ng_inspect_watchers_status') };
-  var onButton = function() { return $('#ng_inspect_watchers_on') };
-  var offButton = function() { return $('#ng_inspect_watchers_off') };
+  var statusElement = function() { return $('#status') };
+  var onButton = function() { return $('#on_button') };
+  var offButton = function() { return $('#off_button') };
 
   function statusText(on) {
-    return on ? 'On' : 'Off';
+    return on ? 'on' : 'off';
   }
 
   function renderStatus(on) {
-    statusElement().text(statusText(on));
+    var text = statusText(on);
+    statusElement().text(text)
+                   .toggleClass("green", text == "on")
+                   .toggleClass("red", text == "off");
   }
 
   function renderButtons(on) {

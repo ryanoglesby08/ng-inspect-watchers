@@ -1,0 +1,16 @@
+body {
+  width: 140px;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 14px;
+  text-align: center;
+}
+
+.status {
+  display: block;
+  margin-top: 5px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.red { color: red; }
+.green { color: green; }
