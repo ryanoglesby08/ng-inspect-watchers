@@ -1,4 +1,7 @@
 var adminApp = (function($) {
+  var noAngularMessage = function() { return $('#no_angular') };
+  var mainContent = function() { return $('#content') };
+
   var statusElement = function() { return $('#status') };
   var onButton = function() { return $('#on_button') };
   var offButton = function() { return $('#off_button') };
@@ -31,9 +34,21 @@ var adminApp = (function($) {
     renderButtons(on);
   }
 
+  function renderInitialState(angularDetected) {
+    if( angularDetected ) {
+      noAngularMessage().hide();
+      mainContent().show();
+    }
+    else {
+      noAngularMessage().show();
+      mainContent().hide();
+    }
+  }
+
   return {
     onButton: onButton,
     offButton: offButton,
-    render: render
+    render: render,
+    renderInitialState: renderInitialState
   }
 })($);

@@ -1,9 +1,15 @@
 $(function() {
   activeTab.openPort(function(port) {
     port.onMessage.addListener(function(message) {
+      if( message.action == 'detectAngular' ) {
+        adminApp.renderInitialState(message.angular);
+        return;
+      }
+
       adminApp.render(message.on);
     });
 
+    port.postMessage({action: 'detectAngular'});
     port.postMessage({action: 'getStatus'});
   });
 

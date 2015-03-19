@@ -11,11 +11,31 @@ var ngInspectWatchers = (function() {
 })();
 
 chrome.runtime.onConnect.addListener(function(port) {
+  function replyTo(message, body) {
+    body.action = message.action;
+    port.postMessage(body);
+  }
+
   port.onMessage.addListener(function(message) {
-    if( message.action == 'updateStatus' ) {
-      ngInspectWatchers.updateStatus(message.on);
+    if( message.action == 'getStatus' ) {
+      replyTo(message, {on: ngInspectWatchers.on()});
+      return;
     }
 
-    port.postMessage({on: ngInspectWatchers.on()});
+    if( message.action == 'updateStatus' ) {
+      ngInspectWatchers.updateStatus(message.on);
+      replyTo(message, {on: ngInspectWatchers.on()});
+      return;
+    }
+
+    if( message.action == 'detectAngular') {
+      if( document.querySelector('[ng-app], [ng-controller], [ng-model]') ) {
+        replyTo(message, {angular: true});
+      }
+      else {
+        replyTo(message, {angular: false});
+      }
+      return;
+    }
   });
 });
