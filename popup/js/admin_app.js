@@ -1,5 +1,6 @@
 var adminApp = (function($) {
   var noAngularMessage = function() { return $('#no_angular') };
+  var noScopeClassesMessage = function() { return $('#no_scope_classes') };
   var mainContent = function() { return $('#content') };
 
   var statusElement = function() { return $('#status') };
@@ -29,20 +30,40 @@ var adminApp = (function($) {
 
   }
 
+  function renderAngularErrorMessages(angularDetected, error) {
+    if( angularDetected ) {
+      noAngularMessage().hide();
+      noScopeClassesMessage().hide();  
+    }
+    else {
+      if( error.toUpperCase() == 'NO_ANGULAR' ) {
+        noAngularMessage().show();
+        noScopeClassesMessage().hide();
+      }
+      else if( error.toUpperCase() == 'NO_SCOPE_CLASSES' ) {
+        noAngularMessage().hide();
+        noScopeClassesMessage().show();
+      }
+    }
+  }
+
+  function renderMainContent(angularDetected) {
+    if( angularDetected ) {
+      mainContent().show();
+    }
+    else {
+      mainContent().hide();
+    }
+  }
+
   function render(on) {
     renderStatus(on);
     renderButtons(on);
   }
 
-  function renderInitialState(angularDetected) {
-    if( angularDetected ) {
-      noAngularMessage().hide();
-      mainContent().show();
-    }
-    else {
-      noAngularMessage().show();
-      mainContent().hide();
-    }
+  function renderInitialState(angularDetected, error) {
+    renderAngularErrorMessages(angularDetected, error);
+    renderMainContent(angularDetected);
   }
 
   return {

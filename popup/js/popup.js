@@ -2,7 +2,7 @@ $(function() {
   activeTab.openPort(function(port) {
     port.onMessage.addListener(function(message) {
       if( message.action == 'detectAngular' ) {
-        adminApp.renderInitialState(message.angular);
+        adminApp.renderInitialState(message.angular, message.error);
         return;
       }
 

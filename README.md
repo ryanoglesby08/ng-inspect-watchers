@@ -9,6 +9,12 @@ https://developer.chrome.com/extensions/getstarted#unpacked
 
 Once installed, just use the Browser Action to turn it on, then hover your mouse over your Angular app to see the watchers highlighed in red.
 
+### Error Codes
+When launching the extension on a web page, you may notice some error messages. Check the console for the appropriate error code.
+
+1. **NO_ANGULAR:** Ng Inspect Watchers can only be used with Angular applications. The extension tries to detect Angular apps by looking for ng-* HTML attributes. If it cannot find any in the current DOM, you will see this error.
+2. **NO_SCOPE_CLASSES:** To determine which elements have scopes, and possibly watchers, the extension relies on `ng-scope` and `ng-isolate-scope` classes that Angular places on DOM elements. Angular provides a way to turn this off/on programmatically if you are seeing this error. https://docs.angularjs.org/guide/production
+
 ## Motivation:
 It is a well known fact that as the number of [watchers](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$watch) in an Angular app increases, the [digest cycle](https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$digest) performance decreases. In Angular 1.3, anything over 2,000 watchers will dramatically effect performance. This extension can help you easily monitor the number of watchers you are adding.
 
