@@ -1,4 +1,4 @@
-var main = function() {
+var main = function(angular, document) {
   var ngWatchCount = function (targetElements) {
     // ngWatchCount has been adopted from bahmutov (https://github.com/bahmutov/code-snippets/blob/master/ng-count-watchers.js)
     //  with help from Patrick Caldwell (https://github.com/tncbbthositg). Thanks!
@@ -17,11 +17,11 @@ var main = function() {
 
       // Elements can be .ng-scope, .ng-isolate-scope, or both. I think if it is both,
       //  then isolateScope() will have the $$watchers
-      if (element.is('.ng-scope')) {
+      if (element.hasClass('ng-scope')) {
         watchers += watchersOn(element.scope());
       }
 
-      if (element.is('.ng-isolate-scope')) {
+      if (element.hasClass('ng-isolate-scope')) {
         watchers += watchersOn(element.isolateScope());
       }
 
@@ -43,19 +43,30 @@ var main = function() {
     console.log('Ng Inspect Watchers: Element contains ' + watchers + ' watchers.');
 
     return watchers;
-  }
+  };
 
   var watcherCountClassName = "iw-ng-watcher-count";
   var watcherHighlightClassName = "iw-ng-scope-highlight";
   var watcherCountTemplate = "<div class='" + watcherCountClassName + "'>{watcherCount}</div>";
 
   function removeAnyWatcherHighlighting() {
-    $('.' + watcherHighlightClassName).removeClass(watcherHighlightClassName);
-    $('.' + watcherCountClassName).remove();
+    angular.element(document.querySelector('.' + watcherHighlightClassName)).removeClass(watcherHighlightClassName);
+    angular.element(document.querySelector('.' + watcherCountClassName)).remove();
+  }
+
+  function closestParentWithAScope(element) {
+    var parent = angular.element(element);
+
+    while( parent && !(parent.hasClass('ng-scope') || parent.hasClass('ng-isolate-scope')) ) {
+      parent = parent.parent();
+    }
+    
+    return parent;
   }
 
   function findScopeParentThen(element, workForScopeParent) {
-    var scopeParent = $(element).closest('.ng-scope, .ng-isolate-scope');
+    var scopeParent = closestParentWithAScope(element);
+
     workForScopeParent(scopeParent);
   }
 
@@ -72,7 +83,7 @@ var main = function() {
   var showWatchers = function(event) {
     removeAnyWatcherHighlighting();
 
-    findScopeParentThen(this, function(scopeParent) {
+    findScopeParentThen(event.target, function(scopeParent) {
       highlight(scopeParent)
       insertWatcherCountInto(scopeParent);
     });
@@ -87,19 +98,20 @@ var main = function() {
   };
 
   disableNgInspectWatchers = function() {
-    $(document).off('mouseover', '*', showWatchers)
-               .off('mouseout', '*', hideWatchers);
+  angular.element(document).off('mouseover', showWatchers)
+                           .off('mouseout', hideWatchers);
 
-    $('#iw_inspect_watchers_js_on').remove();
+    document.body.removeChild(document.getElementById('iw_inspect_watchers_js_on'));
   };
 
 
-  $(document).on('mouseover', '*', showWatchers)
-             .on('mouseout', '*', hideWatchers);
+  angular.element(document).on('mouseover', showWatchers)
+                           .on('mouseout', hideWatchers);
 };
 
 var script = document.createElement('script');
 script.id = 'iw_inspect_watchers_js_on';
 script.appendChild(document.createTextNode('var disableNgInspectWatchers = null;'));
-script.appendChild(document.createTextNode('('+ main +')();'));
-(document.body || document.head || document.documentElement).appendChild(script);
+script.appendChild(document.createTextNode('('+ main +')(angular, document);'));
+
+document.body.appendChild(script);

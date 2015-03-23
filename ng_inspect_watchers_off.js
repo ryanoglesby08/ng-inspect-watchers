@@ -3,10 +3,11 @@ var main = function() {
     disableNgInspectWatchers();
   }
 
-  $('#iw_inspect_watchers_js_off').remove();
+  document.body.removeChild(document.getElementById('iw_inspect_watchers_js_off'));
 };
 
 var script = document.createElement('script');
 script.id = 'iw_inspect_watchers_js_off';
 script.appendChild(document.createTextNode('('+ main +')();'));
-(document.body || document.head || document.documentElement).appendChild(script);
+
+document.body.appendChild(script);

@@ -3,7 +3,7 @@
 
   "name": "Ng Inspect Watchers",
   "description": "Inspect the Angular watchers of an app",
-  "version": "0.4",
+  "version": "0.5",
 
   "content_scripts": [{
     "matches": ["<all_urls>"],
