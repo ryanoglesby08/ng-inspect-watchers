@@ -6,6 +6,7 @@ $(function() {
         return;
       }
 
+      // message.action == 'getStatus'
       adminApp.render(message.on);
     });
 

@@ -1,4 +1,6 @@
 var adminApp = (function($) {
+  var body = function() { return $('body'); };
+
   var noAngularMessage = function() { return $('#no_angular') };
   var noScopeClassesMessage = function() { return $('#no_scope_classes') };
   var mainContent = function() { return $('#content') };
@@ -59,11 +61,13 @@ var adminApp = (function($) {
   function render(on) {
     renderStatus(on);
     renderButtons(on);
+    body().show();
   }
 
   function renderInitialState(angularDetected, error) {
     renderAngularErrorMessages(angularDetected, error);
     renderMainContent(angularDetected);
+    body().show();
   }
 
   return {

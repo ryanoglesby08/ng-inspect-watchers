@@ -31,12 +31,12 @@ chrome.runtime.onConnect.addListener(function(port) {
     if( message.action == 'detectAngular') {
       if( document.querySelector('[ng-app], [ng-controller], [ng-model]') ) {
         if( document.querySelector('.ng-scope, .ng-isolate-scope') ) {
-          replyTo(message, {angular: true});  
+          replyTo(message, {angular: true});
         } else {
           console.log("[Ng Inspect Watchers] Error: NO_SCOPE_CLASSES");
           replyTo(message, {angular: false, error: 'NO_SCOPE_CLASSES'})
         }
-        
+
       }
       else {
         console.log("[Ng Inspect Watchers] Error: NO_ANGULAR");
