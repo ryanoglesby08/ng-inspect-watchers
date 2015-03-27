@@ -2,7 +2,7 @@
   "manifest_version": 2,
 
   "name": "Ng Inspect Watchers",
-  "description": "Inspect the Angular watchers of an app",
+  "description": "Inspect the scope watchers of an Angular app",
   "version": "0.6.0",
 
   "content_scripts": [{
