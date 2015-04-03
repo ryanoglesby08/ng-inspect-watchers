@@ -28,11 +28,11 @@ module.exports = function(grunt) {
         options: {
           archive: function() {
             var version = grunt.file.readJSON('manifest.json').version;
-            return 'ng-inspect-watchers-' + version + '.zip';
+            return 'pkg/ng-inspect-watchers-' + version + '.zip';
           }
         },
         files: [
-          {src: 'icons/**'},
+          {src: 'assets/icons/*.png'},
           {src: 'popup/**'},
           {src: 'ng_inspect_watchers.css'},
           {src: 'ng_inspect_watchers_off.js'}, {src: 'ng_inspect_watchers_on.js'}, {src: 'tab_communicator.js'},
