@@ -1,9 +1,9 @@
 {
   "manifest_version": 2,
 
-  "name": "Ng Inspect Watchers",
+  "name": "AngularJS Inspect Watchers",
   "description": "Inspect the scope watchers of an Angular app",
-  "version": "0.6.0",
+  "version": "0.7.0",
 
   "icons": { 
     "48": "assets/icons/icon48.png",
