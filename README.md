@@ -4,8 +4,7 @@ Ng Inspect Watchers
 A Chrome extension that lets the user inspect the number of Angular watchers that exist on any element of an Angular app.
 
 ## Usage:
-This Chrome extension is still under development and has not reached a 1.0 release yet. However, if you would like to play around with it (it works!) you can clone the repo and install it manually into Chrome. It's easy.
-https://developer.chrome.com/extensions/getstarted#unpacked
+Find it in the [Chrome WebStore](https://chrome.google.com/webstore/detail/angularjs-inspect-watcher/gdfcinoagafkodbnkjemaajfahnmfkhg).
 
 Once installed, just use the Browser Action to turn it on, then hover your mouse over different sections of your Angular application to see the scopes and watchers highlighted in red.
 
