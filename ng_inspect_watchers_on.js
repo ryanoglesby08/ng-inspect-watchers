@@ -40,7 +40,7 @@ var main = function(angular, document) {
       watchers += countWatchers(element);
     });
 
-    console.log('Ng Inspect Watchers: Element contains ' + watchers + ' watchers.');
+    console.log('[Ng Inspect Watchers] Element contains ' + watchers + ' watchers.');
 
     return watchers;
   };
@@ -60,7 +60,7 @@ var main = function(angular, document) {
     while( parent && !(parent.hasClass('ng-scope') || parent.hasClass('ng-isolate-scope')) ) {
       parent = parent.parent();
     }
-    
+
     return parent;
   }
 
