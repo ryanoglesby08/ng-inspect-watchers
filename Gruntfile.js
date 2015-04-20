@@ -1,27 +1,15 @@
 /*global module:false*/
 module.exports = function(grunt) {
 
-  grunt.initConfig({  
+  grunt.initConfig({
     jshint: {
-      options: {
-        curly: true,
-        eqeqeq: true,
-        immed: true,
-        latedef: true,
-        newcap: true,
-        noarg: true,
-        sub: true,
-        undef: true,
-        unused: true,
-        boss: true,
-        eqnull: true,
-        globals: {
-          jQuery: true
-        }
+      all: {
+        src: [
+          'src/**/*.js',
+          'Gruntfile.js',
+          '!src/**/jquery-*.js'
+        ]
       },
-      gruntfile: {
-        src: 'Gruntfile.js'
-      }
     },
     compress: {
       main: {
@@ -33,9 +21,7 @@ module.exports = function(grunt) {
         },
         files: [
           {src: 'assets/icons/*.png'},
-          {src: 'popup/**'},
-          {src: 'ng_inspect_watchers.css'},
-          {src: 'ng_inspect_watchers_off.js'}, {src: 'ng_inspect_watchers_on.js'}, {src: 'tab_communicator.js'},
+          {src: 'src/**'},
           {src: 'manifest.json'}, {src: 'README.md'}
         ]
       }

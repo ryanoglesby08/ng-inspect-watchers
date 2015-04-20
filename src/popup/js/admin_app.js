@@ -1,13 +1,13 @@
 var adminApp = (function($) {
   var body = function() { return $('body'); };
 
-  var noAngularMessage = function() { return $('#no_angular') };
-  var noScopeClassesMessage = function() { return $('#no_scope_classes') };
-  var mainContent = function() { return $('#content') };
+  var noAngularMessage = function() { return $('#no_angular'); };
+  var noScopeClassesMessage = function() { return $('#no_scope_classes'); };
+  var mainContent = function() { return $('#content'); };
 
-  var statusElement = function() { return $('#status') };
-  var onButton = function() { return $('#on_button') };
-  var offButton = function() { return $('#off_button') };
+  var statusElement = function() { return $('#status'); };
+  var onButton = function() { return $('#on_button'); };
+  var offButton = function() { return $('#off_button'); };
 
   function statusText(on) {
     return on ? 'on' : 'off';
@@ -35,7 +35,7 @@ var adminApp = (function($) {
   function renderAngularErrorMessages(angularDetected, error) {
     if( angularDetected ) {
       noAngularMessage().hide();
-      noScopeClassesMessage().hide();  
+      noScopeClassesMessage().hide();
     }
     else {
       if( error.toUpperCase() == 'NO_ANGULAR' ) {
@@ -75,5 +75,5 @@ var adminApp = (function($) {
     offButton: offButton,
     render: render,
     renderInitialState: renderInitialState
-  }
+  };
 })($);

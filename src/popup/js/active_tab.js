@@ -2,7 +2,7 @@ var activeTab = (function() {
   var port = null;
 
   function openPort(callback) {
-    if( port != null ) {
+    if( port !== null ) {
       callback(port);
       return;
     }

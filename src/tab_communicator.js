@@ -32,7 +32,7 @@ chrome.runtime.onConnect.addListener(function(port) {
 
       if( !document.querySelector('.ng-scope, .ng-isolate-scope') ) {
         console.log("[Ng Inspect Watchers] Error: NO_SCOPE_CLASSES");
-        replyTo(message, {angular: false, error: 'NO_SCOPE_CLASSES'})
+        replyTo(message, {angular: false, error: 'NO_SCOPE_CLASSES'});
         return;
       }
 

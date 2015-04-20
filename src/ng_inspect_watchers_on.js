@@ -13,19 +13,19 @@ var main = function(angular, document) {
 
     var countWatchers = function(element) {
       var watchers = 0;
-      var element = angular.element(element);
+      var angularElement = angular.element(element);
 
       // Elements can be .ng-scope, .ng-isolate-scope, or both. I think if it is both,
       //  then isolateScope() will have the $$watchers
-      if (element.hasClass('ng-scope')) {
-        watchers += watchersOn(element.scope());
+      if (angularElement.hasClass('ng-scope')) {
+        watchers += watchersOn(angularElement.scope());
       }
 
-      if (element.hasClass('ng-isolate-scope')) {
-        watchers += watchersOn(element.isolateScope());
+      if (angularElement.hasClass('ng-isolate-scope')) {
+        watchers += watchersOn(angularElement.isolateScope());
       }
 
-      angular.forEach(element.children(), function(childElement) {
+      angular.forEach(angularElement.children(), function(childElement) {
           watchers += countWatchers(childElement);
       });
 
@@ -33,10 +33,10 @@ var main = function(angular, document) {
     };
 
 
-    var targetElements = angular.element(targetElements || document);
+    var angularTargetElements = angular.element(targetElements || document);
 
     var watchers = 0;
-    angular.forEach(targetElements, function(element) {
+    angular.forEach(angularTargetElements, function(element) {
       watchers += countWatchers(element);
     });
 
@@ -77,14 +77,14 @@ var main = function(angular, document) {
   function insertWatcherCountInto(element) {
     var watcherCount = ngWatchCount(element);
 
-    element.append(watcherCountTemplate.replace('{watcherCount}', watcherCount))
+    element.append(watcherCountTemplate.replace('{watcherCount}', watcherCount));
   }
 
   var showWatchers = function(event) {
     removeAnyWatcherHighlighting();
 
     findScopeParentThen(event.target, function(scopeParent) {
-      highlight(scopeParent)
+      highlight(scopeParent);
       insertWatcherCountInto(scopeParent);
     });
 

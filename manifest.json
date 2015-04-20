@@ -12,12 +12,12 @@
 
   "content_scripts": [{
     "matches": ["<all_urls>"],
-    "css": ["ng_inspect_watchers.css"],
-    "js": ["tab_communicator.js"],
+    "css": ["src/ng_inspect_watchers.css"],
+    "js": ["src/tab_communicator.js"],
     "run_at": "document_start"
   }],
   "browser_action": {
-    "default_popup": "popup/popup.html",
+    "default_popup": "src/popup/popup.html",
     "default_title": "Ng Inspect Watchers"
   },
   "permissions": [
