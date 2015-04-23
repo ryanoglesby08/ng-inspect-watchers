@@ -3,6 +3,8 @@ Ng Inspect Watchers
 
 A Chrome extension that lets the user inspect the number of Angular watchers that exist on any element of an Angular app.
 
+_4/20/2015 Update! I just released v1.0.0 of the extension, which moves the extension from a Browser Action to a Page Action (icon appears in the address bar). A Page Action is more appropriate for this extension because the features only makes sense for a few web pages, those with AngularJS running._
+
 ## Usage:
 Find it in the [Chrome WebStore](https://chrome.google.com/webstore/detail/angularjs-inspect-watcher/gdfcinoagafkodbnkjemaajfahnmfkhg).
 
