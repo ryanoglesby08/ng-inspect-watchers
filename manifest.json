@@ -3,26 +3,33 @@
 
   "name": "AngularJS Inspect Watchers",
   "description": "Inspect the scope watchers of an Angular app",
-  "version": "0.7.1",
+  "version": "1.0.0",
 
   "icons": {
     "48": "assets/icons/icon48.png",
     "128": "assets/icons/icon128.png"
   },
 
+  "page_action": {
+    "default_icon": {
+      "19": "assets/icons/icon19-gray.png",
+      "38": "assets/icons/icon38-gray.png"
+    },
+    "default_title": "Click to activate Ng Inspect Watchers"
+  },
+
   "content_scripts": [{
     "matches": ["<all_urls>"],
     "css": ["src/ng_inspect_watchers.css"],
-    "js": ["src/tab_communicator.js"],
     "run_at": "document_start"
   }],
-  "browser_action": {
-    "default_popup": "src/popup/popup.html",
-    "default_title": "Ng Inspect Watchers"
+
+  "background": {
+    "scripts": ["src/page_action.js", "src/tab_status_monitor.js"]
   },
+  
   "permissions": [
-    "activeTab",
-    "tabs",
-    "<all_urls>"
+    "declarativeContent",
+    "activeTab"
   ]
 }
