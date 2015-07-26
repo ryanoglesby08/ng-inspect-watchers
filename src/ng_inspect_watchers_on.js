@@ -53,12 +53,12 @@ var main = function(angular, document) {
     var watcherHighlightClassName = "iw-ng-scope-highlight";
     var watcherCountTemplate = "<div class='" + watcherCountClassName + "'>{watcherCount}</div>";
 
-    function removeAnyWatcherHighlighting() {
+    var removeAnyWatcherHighlighting = function() {
       angular.element(document.querySelector('.' + watcherHighlightClassName)).removeClass(watcherHighlightClassName);
       angular.element(document.querySelector('.' + watcherCountClassName)).remove();
-    }
+    };
 
-    function closestParentWithAScope(element) {
+    var closestParentWithAScope = function(element) {
       var parent = angular.element(element);
 
       while( parent && !(parent.hasClass('ng-scope') || parent.hasClass('ng-isolate-scope')) ) {
@@ -66,23 +66,23 @@ var main = function(angular, document) {
       }
 
       return parent;
-    }
+    };
 
-    function findScopeParentThen(element, workForScopeParent) {
+    var findScopeParentThen = function(element, workForScopeParent) {
       var scopeParent = closestParentWithAScope(element);
 
       workForScopeParent(scopeParent);
-    }
+    };
 
-    function highlight(element) {
+    var highlight = function(element) {
       element.addClass(watcherHighlightClassName);
-    }
+    };
 
-    function insertWatcherCountInto(element) {
+    var insertWatcherCountInto = function(element) {
       var watcherCount = ngWatchCount(element);
 
       element.append(watcherCountTemplate.replace('{watcherCount}', watcherCount));
-    }
+    };
 
     var showWatchers = function(event) {
       removeAnyWatcherHighlighting();
