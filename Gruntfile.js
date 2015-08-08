@@ -6,8 +6,7 @@ module.exports = function(grunt) {
       all: {
         src: [
           'src/**/*.js',
-          'Gruntfile.js',
-          '!src/**/jquery-*.js'
+          'Gruntfile.js'
         ]
       },
     },
@@ -25,12 +24,19 @@ module.exports = function(grunt) {
           {src: 'manifest.json'}, {src: 'README.md'}
         ]
       }
+    },
+    exec: {
+      startChromedriver: 'chromedriver --port=4444 --url-base=wd/hub &',
+      stopChromedriver: 'killall chromedriver',
+      functionalTests: 'node ./node_modules/intern/bin/intern-runner.js config=tests/intern'
     }
   });
 
+  grunt.loadNpmTasks('grunt-exec');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-compress');
 
   grunt.registerTask('default', ['jshint']);
   grunt.registerTask('package', ['jshint', 'compress']);
+  grunt.registerTask('test',    ['exec:startChromedriver', 'exec:functionalTests', 'exec:stopChromedriver'])
 };
