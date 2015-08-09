@@ -4,10 +4,7 @@ module.exports = function(grunt) {
   grunt.initConfig({
     jshint: {
       all: {
-        src: [
-          'src/**/*.js',
-          'Gruntfile.js'
-        ]
+        src: ['src/**/*.js', 'tests/**/*.js', 'Gruntfile.js']
       },
     },
     compress: {
@@ -28,7 +25,9 @@ module.exports = function(grunt) {
     exec: {
       startChromedriver: 'chromedriver --port=4444 --url-base=wd/hub &',
       stopChromedriver: 'killall chromedriver',
-      functionalTests: 'node ./node_modules/intern/bin/intern-runner.js config=tests/intern'
+      functionalTests: 'node ./node_modules/intern/bin/intern-runner.js config=tests/intern',
+
+      serveExampleApp: 'python -m SimpleHTTPServer'
     }
   });
 
@@ -38,5 +37,6 @@ module.exports = function(grunt) {
 
   grunt.registerTask('default', ['jshint']);
   grunt.registerTask('package', ['jshint', 'compress']);
-  grunt.registerTask('test',    ['exec:startChromedriver', 'exec:functionalTests', 'exec:stopChromedriver'])
+  grunt.registerTask('test',    ['exec:startChromedriver', 'exec:functionalTests', 'exec:stopChromedriver']);
+  grunt.registerTask('serveExampleApp', ['exec:serveExampleApp']);
 };

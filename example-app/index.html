@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html ng-app>
+<html ng-app="exampleApp">
   <head>
     <meta charset="utf-8">
     <title>Example Angular app with ng-inspect-watchers</title>
     <script src="../node_modules/angular/angular.js"></script>
+    <script src="app.js"></script>
     <link rel="stylesheet" href="../src/ng_inspect_watchers.css">
   </head>
-  <body>
-    <div style="height: 300px; width: 300px">
-      <input type="text" id="someText" ng-model="someText" />
 
+  <body>
+    <div style="height: 300px; width: 300px" id="exampleController" ng-controller="ExampleController">
+      <input type="text" id="someText" ng-model="someText" />
       <p>{{someText}}</p>
     </div>
 

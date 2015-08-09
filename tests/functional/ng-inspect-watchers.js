@@ -1,23 +1,34 @@
 define(function (require) {
   var registerSuite = require('intern!object');
-  var assert = require('intern/chai!assert');
+  var expect = require('intern/chai!expect');
 
   registerSuite({
     name: 'Functional Tests',
 
-    basic: function() {
-      return this.remote
+    scope_highlighting: function() {
+      var self = this;
+
+      return self.remote
         .get(require.toUrl('example-app/index.html'))
+
         .findById('someText')
-          .click()
-          .type('test it')
+          .then(function(element) {
+              self.remote.moveMouseTo(element);
+          })
           .end()
-        .findByCssSelector('.iw-ng-watcher-count')
+
+        .findById('exampleController')
+          .getAttribute('class')
+          .then(function(className) {
+            expect(className).to.include('iw-ng-scope-highlight');
+          })
+          .end()
+
+        .findByCssSelector('#exampleController .iw-ng-watcher-count')
           .getVisibleText()
-        .then(function(text) {
-          assert.strictEqual(text, '2');
-          // expect(text).toEqual('2')
-        });
+          .then(function(text) {
+            expect(text).to.equal('2');
+          });
     }
   });
 });
