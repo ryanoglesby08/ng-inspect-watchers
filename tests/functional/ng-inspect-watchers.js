@@ -9,7 +9,7 @@ define(function (require) {
       var self = this;
 
       return self.remote
-        .get(require.toUrl('example-app/index.html'))
+        .get(require.toUrl('sample-app/index.html'))
 
         .findById('someText')
           .then(function(element) {
@@ -17,14 +17,14 @@ define(function (require) {
           })
           .end()
 
-        .findById('exampleController')
+        .findById('sampleController')
           .getAttribute('class')
           .then(function(className) {
             expect(className).to.include('iw-ng-scope-highlight');
           })
           .end()
 
-        .findByCssSelector('#exampleController .iw-ng-watcher-count')
+        .findByCssSelector('#sampleController .iw-ng-watcher-count')
           .getVisibleText()
           .then(function(text) {
             expect(text).to.equal('2');
